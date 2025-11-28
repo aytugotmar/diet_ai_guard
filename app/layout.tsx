@@ -1,24 +1,10 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
-import { AppProvider } from "@/contexts/AppContext";
 
 export const metadata: Metadata = {
-    title: "DietGuard AI - Smart Food Analysis",
-    description: "AI-powered dietary restriction checker with advanced analysis",
-    manifest: "/manifest.json",
-    appleWebApp: {
-        capable: true,
-        statusBarStyle: "default",
-        title: "DietGuard AI",
-    },
-};
-
-export const viewport: Viewport = {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-    themeColor: "#10b981",
+    title: "Seyahat Keşfi - Yapay Zeka ile Gizli Cenneti Keşfedin",
+    description: "Yapay zeka destekli kişiselleştirilmiş rotalar ile bilinmeyen ve görülmemiş yerleri keşfedin",
 };
 
 export default function RootLayout({
@@ -28,10 +14,18 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="tr" suppressHydrationWarning>
+            <head>
+                <link
+                    rel="stylesheet"
+                    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+                    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+                    crossOrigin=""
+                />
+            </head>
             <body className="antialiased">
-                <AppProvider>
+                <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
                     {children}
-                </AppProvider>
+                </ThemeProvider>
             </body>
         </html>
     );

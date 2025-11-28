@@ -5,25 +5,39 @@ const config: Config = {
         "./pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./components/**/*.{js,ts,jsx,tsx,mdx}",
         "./app/**/*.{js,ts,jsx,tsx,mdx}",
-        "./contexts/**/*.{js,ts,jsx,tsx,mdx}",
     ],
-    darkMode: 'class',
+    darkMode: "class",
     theme: {
         extend: {
             colors: {
-                background: "rgb(var(--background) / <alpha-value>)",
-                foreground: "rgb(var(--foreground) / <alpha-value>)",
-                card: "rgb(var(--card) / <alpha-value>)",
-                'card-foreground': "rgb(var(--card-foreground) / <alpha-value>)",
-                primary: "rgb(var(--primary) / <alpha-value>)",
-                'primary-foreground': "rgb(var(--primary-foreground) / <alpha-value>)",
-                muted: "rgb(var(--muted) / <alpha-value>)",
-                'muted-foreground': "rgb(var(--muted-foreground) / <alpha-value>)",
-                border: "rgb(var(--border) / <alpha-value>)",
+                background: "var(--background)",
+                foreground: "var(--foreground)",
+            },
+            backgroundImage: {
+                'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                'glass-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
+            },
+            backdropBlur: {
+                xs: '2px',
             },
             animation: {
-                'bounce': 'bounce 1s infinite',
-                'spin': 'spin 1s linear infinite',
+                'blob': 'blob 7s infinite',
+            },
+            keyframes: {
+                blob: {
+                    '0%': {
+                        transform: 'translate(0px, 0px) scale(1)',
+                    },
+                    '33%': {
+                        transform: 'translate(30px, -50px) scale(1.1)',
+                    },
+                    '66%': {
+                        transform: 'translate(-20px, 20px) scale(0.9)',
+                    },
+                    '100%': {
+                        transform: 'translate(0px, 0px) scale(1)',
+                    },
+                },
             },
         },
     },
