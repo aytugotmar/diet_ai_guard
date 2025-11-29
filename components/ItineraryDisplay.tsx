@@ -208,14 +208,14 @@ function TimeBlock({
                                             </h4>
                                             {activity.hiddenGem && (
                                                 <span className="px-2 py-1 text-xs font-semibold rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white shadow-lg animate-pulse-slow">
-                                                    💎 {t('hiddenGem')}
+                                                    💎 {t('hiddenGem') as string}
                                                 </span>
                                             )}
                                         </div>
                                         <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                                             {activity.description}
                                         </p>
-                                        <div className="flex flex-wrap gap-3 text-sm text-gray-500 dark:text-gray-400">
+                                        <div className="flex flex-wrap gap-3 text-sm text-gray-500 dark:text-gray-400 mb-3">
                                             <div className="flex items-center gap-1">
                                                 <Clock className="w-4 h-4" />
                                                 <span>{activity.time}</span>
@@ -229,6 +229,15 @@ function TimeBlock({
                                                 <span>{activity.estimatedCost}</span>
                                             </div>
                                         </div>
+                                        <a
+                                            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activity.location)}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-md hover:shadow-lg transition-all"
+                                        >
+                                            <MapPin className="w-3.5 h-3.5" />
+                                            {t('getDirections') as string}
+                                        </a>
                                     </div>
                                 </div>
                             </div>

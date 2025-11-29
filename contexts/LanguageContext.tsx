@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type Language = 'en' | 'tr';
 
@@ -40,6 +40,7 @@ const translations = {
         hiddenGem: 'Hidden Gem',
         totalBudget: 'Total Budget',
         travelTips: 'Travel Tips',
+        getDirections: 'Get Directions',
         loadingFacts: [
             'Did you know? The word "travel" comes from the French word "travail" meaning work.',
             'Fun Fact: There are more possible iterations of a game of chess than atoms in the known universe!',
@@ -51,32 +52,33 @@ const translations = {
     tr: {
         appTitle: 'TravelGenie AI',
         tagline: 'Yapay Zeka Destekli Seyahat Arkadaşınız',
-        destination: 'Destinasyon',
-        destinationPlaceholder: 'Nereye gitmek istiyorsun?',
+        destination: 'Hedef',
+        destinationPlaceholder: 'Nereye gitmek istersiniz?',
         startDate: 'Başlangıç Tarihi',
         endDate: 'Bitiş Tarihi',
         budget: 'Bütçe',
         budgetPlaceholder: 'örn: $2000',
-        selectVibe: 'Ruh Halini Seç',
-        chill: 'Sakin',
+        selectVibe: 'Seyahat Tarzınızı Seçin',
+        chill: 'Dinlendirici',
         chillDesc: 'Rahat ve huzurlu',
         adventure: 'Macera',
         adventureDesc: 'Heyecan verici',
-        foodie: 'Gurme',
-        foodieDesc: 'Lezzet keşfi',
-        localSecret: 'Yerel Sırlar',
-        localSecretDesc: 'Gizli hazineler',
-        generateItinerary: 'Planımı Oluştur',
+        foodie: 'Yemek Tutkunu',
+        foodieDesc: 'Gastronomi keşfi',
+        localSecret: 'Yerel Keşif',
+        localSecretDesc: 'Gizli mekanlar',
+        generateItinerary: 'Gezi Planımı Oluştur',
         generating: 'Mükemmel yolculuğunuz hazırlanıyor...',
-        weatherCheck: 'Hava Kontrolü (Yağmurlu Gün)',
-        backToForm: 'Yeni Seyahat Planla',
+        weatherCheck: 'Yağmurlu Hava Planı',
+        backToForm: 'Yeni Gezi Planla',
         day: 'Gün',
         morning: 'Sabah',
         afternoon: 'Öğleden Sonra',
         evening: 'Akşam',
-        hiddenGem: 'Gizli Hazine',
+        hiddenGem: 'Gizli Mekan',
         totalBudget: 'Toplam Bütçe',
         travelTips: 'Seyahat İpuçları',
+        getDirections: 'Yol Tarifi Al',
         loadingFacts: [
             'Biliyor muydunuz? "Travel" kelimesi Fransızca "travail" (iş) kelimesinden gelir.',
             'İlginç Bilgi: Bir satranç oyununun olası varyasyonları bilinen evrendeki atomlardan fazladır!',
@@ -90,10 +92,22 @@ const translations = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-    const [language, setLanguage] = useState<Language>('en');
+    const [language, setLanguage] = useState<Language>('tr');
+
+    useEffect(() => {
+        // Load language from localStorage on mount
+        const savedLanguage = localStorage.getItem('language') as Language;
+        if (savedLanguage) {
+            setLanguage(savedLanguage);
+        }
+    }, []);
 
     const toggleLanguage = () => {
-        setLanguage(prev => prev === 'en' ? 'tr' : 'en');
+        setLanguage(prev => {
+            const newLang = prev === 'en' ? 'tr' : 'en';
+            localStorage.setItem('language', newLang);
+            return newLang;
+        });
     };
 
     const t = (key: string): string | string[] => {

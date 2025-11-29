@@ -22,6 +22,26 @@ export default function Home() {
 
     const [loading, setLoading] = useState(false);
     const [itinerary, setItinerary] = useState<Itinerary | null>(null);
+
+    // Load saved form data from localStorage
+    React.useEffect(() => {
+        const savedFormData = localStorage.getItem('travelFormData');
+        if (savedFormData) {
+            try {
+                const parsed = JSON.parse(savedFormData);
+                setFormData(parsed);
+            } catch (e) {
+                console.error('Failed to parse saved form data');
+            }
+        }
+    }, []);
+
+    // Save form data to localStorage whenever it changes
+    React.useEffect(() => {
+        if (formData.destination || formData.budget) {
+            localStorage.setItem('travelFormData', JSON.stringify(formData));
+        }
+    }, [formData]);
     const [loadingFactIndex, setLoadingFactIndex] = useState(0);
 
     const vibes: { value: Vibe; emoji: string; labelKey: string; descKey: string }[] = [
